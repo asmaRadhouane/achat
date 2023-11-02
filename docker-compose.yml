@@ -1,27 +1,28 @@
-version: "3.8"
-
+version: '3.8'
 services:
+  # MySQL Database
   mysqldb:
     image: mysql:5.7
     restart: unless-stopped
     environment:
       MYSQL_ALLOW_EMPTY_PASSWORD: yes
     ports:
-      - 3307:3306
+      - 3307:3306  # Map the container's port 3306 to host port 3306
     volumes:
       - db:/var/lib/mysql
 
-  achat-backend:
-    depends_on:
-      - mysqldb
-    image: ineshaba/achat-1.0
+  # Spring Boot Application
+  devops-app:
+    image: oussamasd/achat:1.0.0  # Replace with your Spring Boot image
     restart: on-failure
     environment:
       MYSQL_ROOT_PASSWORD: root_password
     ports:
-      - 6868:8089
+      - 6868:8089  # Map the container's port 8080 to host port 8080
     stdin_open: true
     tty: true
-
+    depends_on:
+      - mysqldb
 volumes:
   db:
+
