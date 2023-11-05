@@ -1,10 +1,11 @@
-version: "3.8"
+version: "2.21.0"
 
 services:
   mysqldb:
     image: mysql:5.7
     restart: unless-stopped
     environment:
+
       - MYSQL_ROOT_PASSWORD=
       - MYSQL_DATABASE= achat_db
     ports:
@@ -14,7 +15,7 @@ services:
   Achat:
     depends_on:
       - mysqldb
-    image: abirm74/achat-1.0.0
+    image: abirm74/achat-1.0.
     restart: on-failure
     ports:
       - 8089:8089
