@@ -1,21 +1,27 @@
-version: "2"
-services: 
-  backendd:
-    depends_on: [dbb]
-    image: louaynouri/achat:1.0
-    ports:
-      - "8089:8089"
-  frontt:
-    depends_on: [backendd]
-    image: louaynouri/achatang:1.0  
-    ports:
-      - 80:80
-  dbb:
+version: "2.21"
+
+services:
+  mysqldb:
     image: mysql:5.7
-    container_name: mysql-dbb
+    restart: unless-stopped
     environment:
-      MYSQL_DATABASE: achatdb
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_PASSWORD: root
+      MYSQL_ALLOW_EMPTY_PASSWORD: yes
     ports:
-      - "3307:3306" #jw
+      - 3307:3306
+    volumes:
+      - db:/var/lib/mysql
+
+  achat-backend:
+    depends_on:
+      - mysqldb
+    image: louaynouri/achat:1.0
+    restart: on-failure
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password
+    ports:
+      - 6868:8089
+    stdin_open: true
+    tty: true
+
+volumes:
+  db:
