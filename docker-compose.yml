@@ -1,27 +1,33 @@
-version: "2.3.3"
-
+version: "3.8"
 services:
+
+  # database application service
   mysqldb:
     image: mysql:5.7
     restart: unless-stopped
-    environment:
-      MYSQL_ALLOW_EMPTY_PASSWORD: yes
     ports:
-      - 3306:3306
+      - 3307:3306
+    environment:
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
     volumes:
       - db:/var/lib/mysql
 
+    # backend application service
   achat-backend:
     depends_on:
       - mysqldb
-    image: khadijazribi/achat-1.0
+    build: ./
     restart: on-failure
-    environment:
-      MYSQL_ROOT_PASSWORD: root_password
     ports:
       - 8089:8089
     stdin_open: true
     tty: true
+    environment:
+      MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE: 'prometheus'
+      MANAGEMENT_ENDPOINT_PROMETHEUS_ENABLED: 'true'
+      MANAGEMENT_METRICS_EXPORT_PROMETHEUS_ENABLED: 'true'
+      MANAGEMENT_ENDPOINT_HEALTH_SHOW-DETAILS: 'always'
+  
 
 volumes:
-  db:
+  db :
