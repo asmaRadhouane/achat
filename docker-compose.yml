@@ -29,6 +29,11 @@ services:
       - 8089:8089
     stdin_open: true
     tty: true
+  achat-front:
+    depends_on: [achat-backend]
+    image: wissalmetaadi/achatang:1.0  
+    ports:
+      - 80:80
 
 volumes:
   db:
