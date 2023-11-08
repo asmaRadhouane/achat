@@ -82,6 +82,18 @@
 				</includes>
 			</configuration>
 		</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>3.0.0-M1</version>
+				<configuration>
+					<skipTests>false</skipTests>
+					<!-- Add the <includes> section here -->
+					<includes>
+						<include>**/*Test.java</include>
+					</includes>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 	<distributionManagement>
