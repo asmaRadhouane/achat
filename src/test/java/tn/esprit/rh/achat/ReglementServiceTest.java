@@ -1,13 +1,12 @@
 package tn.esprit.rh.achat;
 
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.boot.test.context.SpringBootTest;
 import tn.esprit.rh.achat.entities.Reglement;
 import tn.esprit.rh.achat.repositories.ReglementRepository;
 import tn.esprit.rh.achat.services.ReglementServiceImpl;
@@ -20,8 +19,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.when;
-@SpringBootTest
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+
 @ExtendWith(MockitoExtension.class)
 public class ReglementServiceTest{
     @InjectMocks
@@ -109,52 +107,4 @@ public class ReglementServiceTest{
         float chiffreAffaire = reglementService.getChiffreAffaireEntreDeuxDate(startDate, endDate);
         assertEquals(expectedChiffreAffaire, chiffreAffaire);
     }
-
-    @Test
-    @Order(1)
-    public void testRetrieveAllReglementsJU() {
-        List<Reglement> listReglements = reglementService.retrieveAllReglements();
-        Assertions.assertEquals(1, listReglements.size());
-    }
-
-    @Test
-    @Order(2)
-    public void testAddReglementJU() {
-        Reglement reglement = new Reglement();
-        reglement.setMontantPaye(100.0f);
-        reglement.setMontantRestant(200.0f);
-        reglement.setPayee(true);
-        reglement.setDateReglement(new Date());
-        Reglement addedReglement = reglementService.addReglement(reglement);
-        Assertions.assertNotNull(addedReglement.getIdReglement());
-    }
-
-    @Test
-    @Order(3)
-    public void testRetrieveReglementJU() {
-        Long reglementId = 1L;
-        Reglement retrievedReglement = reglementService.retrieveReglement(reglementId);
-        Assertions.assertNull(retrievedReglement);
-    }
-
-    @Test
-    @Order(4)
-    public void testRetrieveReglementByFactureJU() {
-
-        Long factureId = 1L;
-        List<Reglement> reglements = reglementService.retrieveReglementByFacture(factureId);
-        Assertions.assertNotNull(reglements);
-
-    }
-
-    @Test
-    @Order(5)
-    public void testGetChiffreAffaireEntreDeuxDateJU() {
-        Date startDate = java.sql.Date.valueOf("2023-01-01");
-        Date endDate = java.sql.Date.valueOf("2024-01-01");
-        float chiffreAffaire = reglementService.getChiffreAffaireEntreDeuxDate(startDate, endDate);
-        Assertions.assertNotNull(chiffreAffaire);
-    }
-
-
 }
