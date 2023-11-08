@@ -53,6 +53,14 @@
 			<artifactId>springfox-swagger-ui</artifactId>
 			<version>3.0.0</version>
 		</dependency>
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-junit-jupiter</artifactId>
+		</dependency>
 
 	</dependencies>
 	<!-- Deploy to Nexus -->
@@ -69,6 +77,11 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
+
+					<!-- Add the <includes> section here -->
+					<includes>
+						<include>**/*Test.java</include>
+					</includes>
 					<excludes>
 						<exclude>
 							<groupId>org.projectlombok</groupId>
@@ -76,6 +89,7 @@
 						</exclude>
 					</excludes>
 				</configuration>
+
 			</plugin>
 		</plugins>
 	</build>
