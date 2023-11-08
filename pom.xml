@@ -77,9 +77,8 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
-
-					<!-- Add the <includes> section here -->
 					<includes>
+						<skipTests>false</skipTests>
 						<include>**/*Test.java</include>
 					</includes>
 					<excludes>
@@ -88,6 +87,7 @@
 							<artifactId>lombok</artifactId>
 						</exclude>
 					</excludes>
+
 				</configuration>
 
 			</plugin>
